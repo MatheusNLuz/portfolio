@@ -1,0 +1,23 @@
+# AGENT INSTRUCTIONS & SKILL REGISTRY RULES
+
+CRITICAL: Before making any changes or implementing features in this codebase, you MUST follow these mandatory rules:
+
+1. **AUTOMATIC SKILL & DOC CONSULTATION**:
+   - Always read `docs/SKILLS_GUIDE.md` at the beginning of any task to identify which skill applies to the component or section you are editing.
+   - You MUST inspect the relevant skill's `SKILL.md` file in `.agents/skills/<skill-name>/SKILL.md` using `view_file` BEFORE writing or refactoring code:
+     - For UI/UX, typography, layout, glassmorphism -> Read `.agents/skills/frontend-design/SKILL.md`
+     - For Motion, easings, hover states, micro-interactions -> Read `.agents/skills/improve-animations/SKILL.md`
+     - For ScrollTrigger, scroll reveals, timelines -> Read `.agents/skills/gsap-scrolltrigger/SKILL.md`
+     - For GSAP 60fps performance and transforms -> Read `.agents/skills/gsap-performance/SKILL.md`
+     - For React 19, hooks, dynamic imports, state -> Read `.agents/skills/vercel-react-best-practices/SKILL.md`
+     - For SEO, OpenGraph, JSON-LD schemas -> Read `.agents/skills/seo/SKILL.md`
+     - For Accessibility, WCAG AA, focus states -> Read `.agents/skills/web-design-guidelines/SKILL.md`
+
+2. **ARCHITECTURE & CLEAN CODE**:
+   - Keep components under 250 lines of code.
+   - Separate UI presentation from logic hooks.
+   - Never use prohibited technologies (CRA, Framer Motion, Styled Components, Bootstrap, jQuery, legacy CSS modules).
+   - Use Tailwind CSS v4 CSS variables (`@theme`) in `src/styles/index.css`.
+
+3. **VERIFICATION**:
+   - Always verify TypeScript compilation (`npm run lint` or `npx tsc --noEmit`) and static build compatibility before concluding a task.

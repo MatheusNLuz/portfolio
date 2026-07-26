@@ -1,0 +1,110 @@
+import { WizardQuestion } from '@/types/wizard';
+
+export const WIZARD_QUESTIONS: WizardQuestion[] = [
+  {
+    id: 'name',
+    title: 'Qual é o seu nome completo?',
+    subtitle: 'Queremos entender quem estará no comando deste projeto.',
+    type: 'text',
+    placeholder: 'Ex: Carlos Eduardo',
+  },
+  {
+    id: 'company',
+    title: 'Qual o nome da sua empresa?',
+    subtitle: 'Iremos analisar o perfil do seu negócio para personalizar a solução.',
+    type: 'text',
+    placeholder: 'Ex: Acme Corporation',
+  },
+  {
+    id: 'segment',
+    title: 'Qual o segmento de atuação da empresa?',
+    subtitle: 'Selecione a área principal da sua operação.',
+    type: 'choice',
+    options: [
+      { id: 'tecnologia', label: 'Tecnologia / SaaS', icon: 'Cpu' },
+      { id: 'financeiro', label: 'Financeiro / Fintech / Investimentos', icon: 'DollarSign' },
+      { id: 'saude', label: 'Saúde / Clínicas / Medtech', icon: 'Activity' },
+      { id: 'varejo', label: 'Varejo / E-commerce / Distribuição', icon: 'ShoppingCart' },
+      { id: 'servicos', label: 'Serviços B2B / Consultoria', icon: 'Briefcase' },
+      { id: 'industria', label: 'Indústria / Logística', icon: 'Truck' },
+      { id: 'outro', label: 'Outro Segmento', icon: 'Globe' },
+    ],
+  },
+  {
+    id: 'employees',
+    title: 'Quantos funcionários trabalham na sua empresa?',
+    subtitle: 'Isso nos ajuda a estimar a escala e complexidade da arquitetura.',
+    type: 'choice',
+    options: [
+      { id: '1-10', label: '1 a 10 colaboradores', description: 'Empresa enxuta em fase de aceleração' },
+      { id: '11-50', label: '11 a 50 colaboradores', description: 'Operação estruturada em expansão' },
+      { id: '51-200', label: '51 a 200 colaboradores', description: 'Média empresa com processos consolidados' },
+      { id: '200+', label: 'Mais de 200 colaboradores', description: 'Enterprise com múltiplos departamentos' },
+    ],
+  },
+  {
+    id: 'hasExistingSystem',
+    title: 'Sua empresa já possui algum sistema ou software em uso?',
+    subtitle: 'Indique se iremos integrar/substituir algo existente ou criar do zero.',
+    type: 'boolean',
+    options: [
+      { id: 'sim', label: 'Sim, já temos sistema e queremos refazer/integrar' },
+      { id: 'nao', label: 'Não, será um projeto totalmente novo' },
+    ],
+  },
+  {
+    id: 'projectType',
+    title: 'O que você deseja desenvolver?',
+    subtitle: 'Selecione o objetivo principal da contratação.',
+    type: 'choice',
+    options: [
+      { id: 'sistema-gestao', label: 'Sistema Web de Gestão (ERP / CRM / Dashboard)', icon: 'Layout' },
+      { id: 'automacao', label: 'Automação de Processos & Integrações de APIs', icon: 'Zap' },
+      { id: 'saas', label: 'Novo Produto de Software (SaaS / MVP)', icon: 'Layers' },
+      { id: 'site-premium', label: 'Site Institucional Premium & Portal de Vendas', icon: 'Monitor' },
+      { id: 'outro', label: 'Outra Solução Personalizada', icon: 'Code' },
+    ],
+  },
+  {
+    id: 'currentProblem',
+    title: 'Qual é o maior desafio ou problema atual da sua empresa?',
+    subtitle: 'Explique brevemente o que está atrasando o crescimento ou gerando perdas.',
+    type: 'text',
+    placeholder: 'Ex: Retrabalho manual de planilhas, falta de controle de vendas, sistema atual muito lento...',
+  },
+  {
+    id: 'deadline',
+    title: 'Qual o prazo ideal para o lançamento deste projeto?',
+    subtitle: 'Nossa equipe trabalha com sprints semanais de entrega contínua.',
+    type: 'choice',
+    options: [
+      { id: 'urgente', label: 'Urgente (Até 30 dias)', description: 'Sprint acelerada de alta prioridade' },
+      { id: 'normal', label: 'Curto Prazo (1 a 2 meses)', description: 'Cronograma padrão equilibrado' },
+      { id: 'planejado', label: 'Médio Prazo (3 a 4 meses)', description: 'Projeto modular de alta complexidade' },
+      { id: 'flexivel', label: 'Sem data fixa / Flexível', description: 'Foco total em escopo detalhado' },
+    ],
+  },
+  {
+    id: 'budgetRange',
+    title: 'Qual é a faixa de investimento estimada para o projeto?',
+    subtitle: 'Projetos sob medida exigem investimento compatível com o retorno gerado.',
+    type: 'choice',
+    options: [
+      { id: '15k-25k', label: 'R$ 15.000 a R$ 25.000', description: 'Módulo inicial / Automação / Landing Premium' },
+      { id: '25k-45k', label: 'R$ 25.000 a R$ 45.000', description: 'Sistema Web completo / ERP sob medida' },
+      { id: '45k-80k', label: 'R$ 45.000 a R$ 80.000', description: 'Plataforma SaaS / Sistema Enterprise' },
+      { id: '80k+', label: 'Acima de R$ 80.000', description: 'Ecossistema completo com múltiplos módulos' },
+    ],
+  },
+  {
+    id: 'contactMethod',
+    title: 'Como prefere que nossa equipe entre em contato?',
+    subtitle: 'Entraremos em contato em até 2 horas úteis com o estudo preliminar.',
+    type: 'choice',
+    options: [
+      { id: 'whatsapp', label: 'WhatsApp (Mais Rápido)', icon: 'MessageSquare' },
+      { id: 'reuniao', label: 'Agendar Reunião no Google Meet', icon: 'Video' },
+      { id: 'email', label: 'E-mail Formal com Proposta', icon: 'Mail' },
+    ],
+  },
+];

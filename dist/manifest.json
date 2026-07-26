@@ -1,0 +1,15 @@
+{
+  "short_name": "Nexus",
+  "name": "Nexus Software Studio - Sistemas Inteligentes",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "background_color": "#06080d",
+  "theme_color": "#06080d",
+  "display": "standalone"
+}
