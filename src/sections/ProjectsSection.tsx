@@ -48,7 +48,7 @@ export const ProjectsSection: React.FC = () => {
               {/* Image Preview */}
               <div className="relative h-64 md:h-auto md:w-1/2 overflow-hidden bg-slate-100 shrink-0">
                 <img
-                  src={project.image}
+                  src={`${import.meta.env.BASE_URL}${project.image.startsWith('/') ? project.image.slice(1) : project.image}`}
                   alt={project.title}
                   loading="lazy"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
