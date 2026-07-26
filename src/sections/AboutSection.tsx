@@ -1,6 +1,6 @@
 import React from 'react';
 import { Badge } from '@/components/ui/Badge';
-import { Building2, CheckCircle2, Clock, Smartphone } from 'lucide-react';
+import { Building2, CheckCircle2 } from 'lucide-react';
 
 export const AboutSection: React.FC = () => {
   return (

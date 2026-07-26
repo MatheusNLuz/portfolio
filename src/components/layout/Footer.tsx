@@ -1,6 +1,6 @@
 import React from 'react';
 import { COMPANY } from '@/constants/company';
-import { Github, Linkedin, Instagram, ArrowUpRight } from 'lucide-react';
+import { Github, Linkedin, ArrowUpRight } from 'lucide-react';
 import { Logo } from '@/components/ui/Logo';
 
 export const Footer: React.FC = () => {

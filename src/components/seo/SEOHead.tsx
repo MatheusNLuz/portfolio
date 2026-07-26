@@ -38,7 +38,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
         closes: '19:00',
       }
     ],
-    sameAs: [COMPANY.social.linkedin, COMPANY.social.github, COMPANY.social.instagram],
+    sameAs: [COMPANY.social.linkedin, COMPANY.social.github],
     priceRange: '$$$',
     areaServed: 'BR',
     knowsAbout: ['Automação de Processos', 'Software para Clínicas', 'Sistemas de Agendamento', 'Desenvolvimento Web'],

@@ -5,7 +5,7 @@ export const PROJECTS: ProjectCase[] = [
     id: 'papinhia',
     title: 'PapinhIA',
     client: 'Produto Próprio (SaaS)',
-    category: 'SaaS B2C',
+    category: 'Plataforma SaaS',
     description:
       'Uma plataforma completa para auxiliar pais na fase de Introdução Alimentar (IA) de seus bebês. A inteligência do sistema remove a fricção de não saber "o que e como fazer" durante esse período importante.',
     metrics: [
