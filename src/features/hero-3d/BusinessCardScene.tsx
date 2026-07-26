@@ -15,7 +15,7 @@ export const BusinessCardScene: React.FC = () => {
             <BusinessCardMesh />
           </Float>
           <Environment preset="studio" />
-          <ContactShadows position={[0, -1.3, 0]} opacity={0.3} scale={6} blur={3} far={4} color="#0f172a" />
+          <ContactShadows position={[0, -1.3, 0]} opacity={0.3} scale={6} blur={3} far={4} color="#0f172a" frames={1} resolution={256} />
         </Suspense>
       </Canvas>
     </div>
