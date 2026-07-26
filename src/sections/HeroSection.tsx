@@ -10,6 +10,13 @@ const BusinessCardScene = lazy(() => import('@/features/hero-3d/BusinessCardScen
 
 export const HeroSection: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [show3D, setShow3D] = React.useState(false);
+
+  React.useEffect(() => {
+    // Only mount the heavy 3D scene after the initial text animation completes
+    const timer = setTimeout(() => setShow3D(true), 1500);
+    return () => clearTimeout(timer);
+  }, []);
   
   useGSAP(() => {
     // Adding a delay gives the main thread time to breathe after hydration, avoiding jank
@@ -139,16 +146,23 @@ export const HeroSection: React.FC = () => {
 
         {/* Right Column: Interactive 3D Business Card */}
         <div className="hero-3d-card lg:col-span-5 relative flex items-center justify-center will-change-transform">
-          <Suspense
-            fallback={
-              <div className="w-full h-[400px] sm:h-[500px] lg:h-[550px] glass-panel rounded-3xl flex flex-col items-center justify-center gap-3">
-                <div className="w-8 h-8 border-2 border-sky-500 border-t-transparent rounded-full animate-spin" />
-                <span className="text-xs text-slate-500 font-medium">Carregando Experiência...</span>
-              </div>
-            }
-          >
-            <BusinessCardScene />
-          </Suspense>
+          {show3D ? (
+            <Suspense
+              fallback={
+                <div className="w-full h-[400px] sm:h-[500px] lg:h-[550px] glass-panel rounded-3xl flex flex-col items-center justify-center gap-3">
+                  <div className="w-8 h-8 border-2 border-sky-500 border-t-transparent rounded-full animate-spin" />
+                  <span className="text-xs text-slate-500 font-medium">Carregando Experiência...</span>
+                </div>
+              }
+            >
+              <BusinessCardScene />
+            </Suspense>
+          ) : (
+            <div className="w-full h-[400px] sm:h-[500px] lg:h-[550px] glass-panel rounded-3xl flex flex-col items-center justify-center gap-3">
+              <div className="w-8 h-8 border-2 border-sky-500 border-t-transparent rounded-full animate-spin" />
+              <span className="text-xs text-slate-500 font-medium">Carregando Experiência...</span>
+            </div>
+          )}
         </div>
       </div>
     </section>
