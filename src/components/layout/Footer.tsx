@@ -41,15 +41,6 @@ export const Footer: React.FC = () => {
             >
               <Linkedin className="w-4 h-4" />
             </a>
-            <a
-              href={COMPANY.social.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2.5 rounded-xl bg-white hover:bg-slate-100 border border-slate-200 text-slate-500 hover:text-slate-900 transition-colors shadow-sm"
-              aria-label="Instagram"
-            >
-              <Instagram className="w-4 h-4" />
-            </a>
           </div>
         </div>
 
@@ -60,13 +51,8 @@ export const Footer: React.FC = () => {
           </h4>
           <ul className="space-y-2 text-sm text-slate-600">
             <li>
-              <a href="#solucoes" className="hover:text-slate-900 transition-colors">
-                Soluções
-              </a>
-            </li>
-            <li>
-              <a href="#processo" className="hover:text-slate-900 transition-colors">
-                Processo de Desenvolvimento
+              <a href="#sobre" className="hover:text-slate-900 transition-colors">
+                Sobre Mim
               </a>
             </li>
             <li>
@@ -75,8 +61,13 @@ export const Footer: React.FC = () => {
               </a>
             </li>
             <li>
-              <a href="#diferenciais" className="hover:text-slate-900 transition-colors">
-                Por que me escolher
+              <a href="#solucoes" className="hover:text-slate-900 transition-colors">
+                Soluções
+              </a>
+            </li>
+            <li>
+              <a href="#processo" className="hover:text-slate-900 transition-colors">
+                Processo de Desenvolvimento
               </a>
             </li>
             <li>
@@ -93,7 +84,6 @@ export const Footer: React.FC = () => {
             Contato Direct
           </h4>
           <div className="space-y-2 text-sm text-slate-600">
-            <p className="text-slate-900 font-medium">{COMPANY.email}</p>
             <p>{COMPANY.location}</p>
             <p className="text-xs text-slate-500">{COMPANY.workingHours}</p>
           </div>
@@ -112,9 +102,6 @@ export const Footer: React.FC = () => {
 
       <div className="max-w-7xl mx-auto pt-8 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
         <p>© {new Date().getFullYear()} {COMPANY.name}. Todos os direitos reservados.</p>
-        <p className="flex items-center gap-2">
-          <span>Hospedado estaticamente com performance 100%</span>
-        </p>
       </div>
     </footer>
   );

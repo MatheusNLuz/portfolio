@@ -34,34 +34,33 @@ export const ProjectsSection: React.FC = () => {
             Negócios reais que transformaram sua rotina
           </h2>
           <p className="font-sans text-slate-600 text-base sm:text-lg">
-            Veja como ajudamos clínicas, restaurantes, barbearias e prestadores de serviço a economizar tempo e aumentar as vendas.
+            Veja na prática como entregamos soluções de alto impacto, desde o planejamento até o código em produção.
           </p>
         </div>
 
         {/* Projects Grid */}
-        <div ref={cardsRef} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div ref={cardsRef} className="max-w-4xl mx-auto">
           {PROJECTS.map((project) => (
             <div
               key={project.id}
-              className="glass-panel border border-slate-200 shadow-slate-500/5 rounded-2xl flex flex-col justify-between overflow-hidden p-0 group will-change-transform hover:border-slate-500/30 transition-colors"
+              className="glass-panel border border-slate-200 shadow-slate-500/5 rounded-2xl flex flex-col md:flex-row overflow-hidden p-0 group will-change-transform hover:border-slate-500/30 transition-colors"
             >
               {/* Image Preview */}
-              <div className="relative h-48 w-full overflow-hidden bg-slate-100">
+              <div className="relative h-64 md:h-auto md:w-1/2 overflow-hidden bg-slate-100 shrink-0">
                 <img
                   src={project.image}
                   alt={project.title}
                   loading="lazy"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-blue-950/40 via-transparent to-transparent" />
                 <div className="absolute top-4 left-4">
                   <Badge variant="default" className="bg-white/90 text-slate-900 border-slate-200 backdrop-blur-sm">{project.category}</Badge>
                 </div>
               </div>
 
               {/* Content Body */}
-              <div className="p-6 space-y-4 flex-1 flex flex-col justify-between">
-                <div className="space-y-2">
+              <div className="p-8 space-y-6 flex-1 flex flex-col justify-center">
+                <div className="space-y-3">
                   <span className="font-sans text-xs font-semibold text-slate-800">
                     Cliente: {project.client}
                   </span>
@@ -93,7 +92,7 @@ export const ProjectsSection: React.FC = () => {
                   {project.tags.map((tag, idx) => (
                     <span
                       key={idx}
-                      className="font-mono px-2 py-0.5 text-[10px] font-medium bg-slate-100 text-slate-600 rounded-md border border-slate-200"
+                      className="font-mono px-2 py-1 text-[10px] font-medium bg-sky-50 text-sky-700 rounded-md border border-sky-100"
                     >
                       {tag}
                     </span>

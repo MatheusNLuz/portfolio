@@ -19,11 +19,10 @@ export const Navbar: React.FC = () => {
   }, []);
 
   const navLinks = [
+    { label: 'Sobre Mim', href: '#sobre' },
+    { label: 'Projetos', href: '#projetos' },
     { label: 'Soluções', href: '#solucoes' },
     { label: 'Processo', href: '#processo' },
-    { label: 'Projetos', href: '#projetos' },
-    { label: 'Diferenciais', href: '#diferenciais' },
-    { label: 'Sobre', href: '#sobre' },
     { label: 'FAQ', href: '#faq' },
   ];
 

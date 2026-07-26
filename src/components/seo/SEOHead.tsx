@@ -17,7 +17,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
 }) => {
   const jsonLdSchema = {
     '@context': 'https://schema.org',
-    '@type': 'ProfessionalService',
+    '@type': 'LocalBusiness',
     name: COMPANY.name,
     url: COMPANY.siteUrl,
     logo: `${COMPANY.siteUrl}/logo.png`,
@@ -30,9 +30,18 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
       addressRegion: 'SP',
       addressCountry: 'BR',
     },
-    openingHours: 'Mo-Fr 08:00-19:00',
+    openingHoursSpecification: [
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        opens: '08:00',
+        closes: '19:00',
+      }
+    ],
     sameAs: [COMPANY.social.linkedin, COMPANY.social.github, COMPANY.social.instagram],
-    priceRange: 'R$ 15.000 - R$ 100.000+',
+    priceRange: '$$$',
+    areaServed: 'BR',
+    knowsAbout: ['Automação de Processos', 'Software para Clínicas', 'Sistemas de Agendamento', 'Desenvolvimento Web'],
   };
 
   return (

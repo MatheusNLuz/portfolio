@@ -104,24 +104,24 @@ export const BusinessCardMesh: React.FC = () => {
 
         <Text
           position={[-1.1, -0.15, 0.01]}
-          fontSize={0.09}
+          fontSize={0.08}
           color="#334155" // slate-700
           font={interFont}
           anchorX="left"
           letterSpacing={0.05}
         >
-          Transformando ideias locais
+          Engenheiro de Software & Fundador
         </Text>
 
         <Text
           position={[-1.1, -0.3, 0.01]}
-          fontSize={0.09}
-          color="#334155" // slate-700
+          fontSize={0.08}
+          color="#0ea5e9" // sky-500
           font={interFont}
           anchorX="left"
           letterSpacing={0.05}
         >
-          em soluções digitais.
+          Criador do SaaS PapinhIA
         </Text>
 
         <Text
@@ -153,21 +153,13 @@ export const BusinessCardMesh: React.FC = () => {
           Vamos conversar sobre o seu negócio?
         </Text>
 
-        <Text
-          position={[0, -0.1, 0.01]}
-          fontSize={0.1}
-          color="#0ea5e9"
-          font={interFont}
-          anchorX="center"
-          letterSpacing={0.05}
-        >
-          matheus.dev
-        </Text>
+
 
         <Text
           position={[0, -0.5, 0.01]}
           fontSize={0.06}
           color="#64748b" // slate-500
+          font={interFont}
           anchorX="center"
         >
           DESENVOLVIMENTO DE SOFTWARE SOB MEDIDA

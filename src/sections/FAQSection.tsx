@@ -11,7 +11,7 @@ export const FAQSection: React.FC = () => {
     {
       id: 'faq-1',
       question: 'Qual é o valor mínimo de investimento para um projeto?',
-      answer: 'Desenvolvemos soluções personalizadas a partir de R$ 15.000 a R$ 20.000 para módulos iniciais e automações, e de R$ 25.000 a R$ 80.000+ para sistemas web de gestão e plataformas SaaS enterprise. O valor exato é estimado no nosso Wizard de Orçamento.',
+      answer: 'Temos soluções para diferentes momentos do seu negócio. Nossos sistemas por assinatura (SaaS) possuem valores mensais bastante acessíveis para que você comece rápido. Já para os projetos de desenvolvimento sob medida, realizamos um orçamento detalhado com base na complexidade e exclusividade que a sua empresa exige.',
       category: 'Investimento',
     },
     {

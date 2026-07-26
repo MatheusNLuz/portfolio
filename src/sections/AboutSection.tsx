@@ -11,16 +11,16 @@ export const AboutSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Left Column */}
           <div className="lg:col-span-6 space-y-6">
-            <Badge variant="default" icon={<Building2 className="w-3.5 h-3.5 text-slate-600" />}>
+            <Badge variant="default" icon={<Building2 className="w-3.5 h-3.5 text-slate-700" />}>
               Sobre o Serviço
             </Badge>
-            <h2 className="font-display font-bold text-3xl sm:text-4xl text-slate-900 tracking-tight">
-              Eu ajudo empresários locais a pararem de perder tempo com tarefas repetitivas.
+            <h2 className="font-display font-bold text-3xl sm:text-4xl text-slate-900 tracking-tight leading-tight">
+              Sexta-feira à noite e você ainda está respondendo clientes no WhatsApp?
             </h2>
-            <p className="font-sans text-slate-600 text-base leading-relaxed">
-              Você não abriu seu negócio para passar o dia inteiro respondendo mensagens de agendamento ou enviando o cardápio em PDF. Meu objetivo é criar sistemas simples e diretos que funcionam como um funcionário 24 horas por dia.
+            <p className="font-sans text-slate-700 text-base leading-relaxed">
+              Você não abriu seu negócio para passar o dia inteiro copiando e colando mensagens de agendamento ou enviando PDF de cardápio. Eu ajudo empresários a saírem do operacional criando sistemas que funcionam como um funcionário perfeito 24 horas por dia.
             </p>
-            <p className="font-sans text-slate-600 text-sm leading-relaxed">
+            <p className="font-sans text-slate-700 text-sm leading-relaxed">
               Sem termos técnicos complicados ou mensalidades ocultas. Focamos na sua realidade: criar uma presença digital profissional que passa confiança aos seus clientes e devolve a organização para a sua rotina.
             </p>
 
@@ -38,35 +38,30 @@ export const AboutSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: Stats & Security Card */}
+          {/* Right Column: Profile Card */}
           <div className="lg:col-span-6">
-            <div className="glass-panel border border-slate-200 shadow-slate-500/5 rounded-2xl space-y-8 p-8">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-slate-100 border border-slate-200 flex items-center justify-center">
-                  <Clock className="w-6 h-6 text-slate-800" />
-                </div>
-                <div>
-                  <h3 className="font-display font-bold text-xl text-slate-900">Sua rotina no piloto automático</h3>
-                  <p className="text-xs text-slate-600">Deixe a tecnologia fazer o trabalho braçal</p>
-                </div>
+            <div className="glass-panel border border-slate-200 shadow-slate-500/5 rounded-2xl p-8 transition-all duration-500 hover:shadow-slate-500/10 hover:border-blue-500/30 flex flex-col items-center text-center space-y-6">
+              <div className="w-24 h-24 rounded-full bg-slate-200 border-4 border-white shadow-sm overflow-hidden flex items-center justify-center shrink-0">
+                <span className="font-display text-4xl text-slate-400">ML</span>
               </div>
-
-              <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-200">
-                <div className="space-y-1">
-                  <div className="font-mono font-bold text-2xl text-slate-900">100%</div>
-                  <div className="text-xs text-slate-600">Focado no seu negócio</div>
-                </div>
-                <div className="space-y-1">
-                  <div className="font-mono font-bold text-2xl text-slate-900">24/7</div>
-                  <div className="text-xs text-slate-600">Disponibilidade online</div>
-                </div>
+              <div className="space-y-2">
+                <h3 className="font-display font-bold text-2xl text-slate-900">Olá, eu sou o Matheus Luz</h3>
+                <p className="text-sm text-slate-600 font-medium uppercase tracking-widest">
+                  Engenheiro de Software & Fundador
+                </p>
               </div>
-
-              <div className="p-4 rounded-xl bg-[#f8fafc] border border-slate-200 flex items-center gap-3">
-                <Smartphone className="w-5 h-5 text-slate-800 shrink-0" />
-                <span className="text-xs text-slate-600">
-                  Tudo projetado para funcionar perfeitamente no celular dos seus clientes.
-                </span>
+              <p className="font-sans text-slate-700 text-sm leading-relaxed max-w-sm">
+                Minha missão é traduzir tecnologias complexas em ferramentas simples que geram lucro e tempo livre. Como criador do SaaS <strong>PapinhIA</strong>, sei exatamente o que é colocar um produto digital no ar e escalar. Trago essa mesma expertise técnica para o seu projeto.
+              </p>
+              <div className="p-4 rounded-xl bg-[#f8fafc] border border-slate-200 flex flex-col w-full text-left gap-2 mt-4">
+                <div className="flex items-center gap-3 text-sm text-slate-700">
+                  <CheckCircle2 className="w-4 h-4 text-sky-500 shrink-0" />
+                  <span>Código limpo e escalável</span>
+                </div>
+                <div className="flex items-center gap-3 text-sm text-slate-700">
+                  <CheckCircle2 className="w-4 h-4 text-sky-500 shrink-0" />
+                  <span>Foco total na experiência do usuário</span>
+                </div>
               </div>
             </div>
           </div>

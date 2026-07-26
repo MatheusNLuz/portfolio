@@ -13,14 +13,14 @@ export function buildWhatsAppUrl(data?: Partial<WizardData>): string {
   }
 
   const messageLines = [
-    `👋 *Novo Orçamento de Projeto — Software House*`,
+    `[NOVO ORÇAMENTO] *Software House*`,
     ``,
     `*Cliente:* ${data.name || 'Não informado'}`,
     `*Empresa:* ${data.company || 'Não informado'}`,
     `*Segmento:* ${data.segment || 'Não informado'}`,
     `*Tamanho da Empresa:* ${data.employees || 'Não informado'}`,
     ``,
-    `📋 *Escopo Solicitado:*`,
+    `[ESCOPO SOLICITADO]`,
     `- *Objetivo:* ${data.projectType || 'Desenvolvimento Personalizado'}`,
     `- *Já possui sistema:* ${data.hasExistingSystem ? 'Sim' : 'Não'}`,
     `- *Desafio/Problema:* ${data.currentProblem || 'Economia de tempo e automação'}`,
@@ -28,7 +28,7 @@ export function buildWhatsAppUrl(data?: Partial<WizardData>): string {
     `- *Faixa de Investimento:* ${data.budgetRange || 'R$ 20.000+'}`,
     `- *Canal Preferencial:* ${data.contactMethod || 'WhatsApp'}`,
     ``,
-    `🚀 *Gostaria de agendar uma reunião inicial para alinhar o escopo e contrato.*`,
+    `*Gostaria de agendar uma reunião inicial para alinhar o escopo e contrato.*`,
   ];
 
   const fullText = messageLines.join('\n');

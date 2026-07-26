@@ -7,15 +7,14 @@ export const COMPANY = {
   heroSubheadline:
     'Chega de perder tempo organizando pedidos no WhatsApp ou anotando agendamentos no papel. Eu construo a plataforma que a sua loja, barbearia ou clínica precisa para crescer de verdade.',
   email: 'ola@matheusluz.dev',
-  whatsapp: 'https://wa.me/5511999999999',
-  whatsappPhone: '5511999999999',
+  whatsapp: 'https://wa.me/5511989533019',
+  whatsappPhone: '5511989533019',
   siteUrl: 'https://matheusluz.dev',
   location: 'São Paulo - SP, Brasil',
   workingHours: 'Segunda a Sexta, 08h às 19h',
   social: {
-    instagram: 'https://instagram.com/matheusluz',
-    linkedin: 'https://linkedin.com/in/matheusluz',
-    github: 'https://github.com/matheusluz',
+    linkedin: 'https://www.linkedin.com/in/matheus-luz--d795981/',
+    github: 'https://github.com/MatheusNLuz',
   },
   stats: [
     { label: 'Contato Direto', value: '1 a 1' },

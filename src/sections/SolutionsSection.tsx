@@ -12,28 +12,28 @@ export const SolutionsSection: React.FC = () => {
 
   const localServices = [
     {
-      id: 'agendamento',
-      title: 'Sistemas de Agendamento',
-      description: 'Acabe com o vai e vem de mensagens no WhatsApp. Seus clientes agendam, remarcam e cancelam sozinhos, 24 horas por dia, enquanto você foca no atendimento.',
-      iconName: 'Calendar',
-      benefits: ['Agenda sempre organizada', 'Redução de faltas (lembretes automáticos)', 'Profissionalismo desde o 1º contato'],
-      deliverables: ['Painel de Controle', 'Link na Bio', 'Notificações'],
-    },
-    {
-      id: 'catalogo',
-      title: 'Catálogos Virtuais',
-      description: 'Esqueça os PDFs pesados e desatualizados. Mostre seus produtos e serviços com fotos, preços atualizados e receba os pedidos organizados direto no seu WhatsApp.',
+      id: 'saas',
+      title: 'Sistemas por Assinatura (SaaS)',
+      description: 'Você precisa de uma solução validada, rápida e de baixo custo inicial? Alugue um de nossos sistemas prontos para uso (ex: Agendamentos, Cardápios) com pagamento mensal.',
       iconName: 'ShoppingBag',
-      benefits: ['Pedidos organizados e padronizados', 'Atualização fácil de preços', 'Carregamento rápido no celular'],
-      deliverables: ['Cardápio/Catálogo Online', 'Carrinho de Compras', 'Link Direto'],
+      benefits: ['Baixo investimento inicial', 'Atualizações e suporte inclusos', 'Pronto para usar hoje mesmo'],
+      deliverables: ['Acesso Imediato', 'Manutenção Inclusa', 'Treinamento Básico'],
     },
     {
-      id: 'landing',
-      title: 'Landing Pages de Alta Conversão',
-      description: 'Um site rápido e focado em transformar visitantes em clientes. Perfeito para clínicas, advogados ou prestadores de serviços que investem em anúncios e precisam de resultados.',
+      id: 'sob-medida',
+      title: 'Desenvolvimento Sob Medida',
+      description: 'Sua operação tem regras únicas que nenhum sistema de prateleira resolve? Desenvolvemos do zero uma plataforma exclusiva que atende 100% dos seus processos.',
       iconName: 'LayoutTemplate',
-      benefits: ['Mais orçamentos diários', 'Passa confiança e autoridade', 'Funciona perfeitamente no celular'],
-      deliverables: ['Site Rápido (SEO)', 'Botão de WhatsApp', 'Formulário de Contato'],
+      benefits: ['100% aderente aos seus processos', 'Vantagem competitiva exclusiva', 'O código-fonte é seu'],
+      deliverables: ['Arquitetura Enterprise', 'UI/UX Exclusiva', 'Integrações Customizadas'],
+    },
+    {
+      id: 'consultoria',
+      title: 'Auditoria e Refatoração',
+      description: 'Já tem um sistema rodando, mas ele está lento, cheio de bugs ou não converte? Analisamos seu código e refatoramos a aplicação usando as melhores práticas de mercado (React, GSAP, Tailwind).',
+      iconName: 'Calendar',
+      benefits: ['Aumento imediato de velocidade (60fps)', 'Melhoria na conversão e UX', 'Código sustentável e limpo'],
+      deliverables: ['Relatório de Auditoria', 'Refatoração de Código', 'Testes de Carga'],
     }
   ];
 
@@ -67,7 +67,7 @@ export const SolutionsSection: React.FC = () => {
             Ferramentas práticas para o seu dia a dia
           </h2>
           <p className="font-sans text-slate-600 text-base sm:text-lg">
-            Soluções digitais focadas em resolver problemas reais: trazer mais clientes, organizar os pedidos e economizar o seu tempo.
+            Soluções flexíveis para o momento do seu negócio: alugue uma ferramenta validada ou construa a sua plataforma proprietária do zero.
           </p>
         </div>
 

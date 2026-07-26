@@ -71,7 +71,7 @@ export const HeroSection: React.FC = () => {
           {/* Badge */}
           <div className="hero-badge inline-flex items-center will-change-transform">
             <Badge variant="accent" icon={<Sparkles className="w-3.5 h-3.5 text-blue-400" />}>
-              Para Negócios Locais
+              SaaS & Projetos Sob Medida
             </Badge>
           </div>
 
@@ -81,33 +81,39 @@ export const HeroSection: React.FC = () => {
           </h1>
 
           {/* Subtitle */}
-          <p className="hero-subtitle font-sans text-slate-600 text-base sm:text-lg lg:text-xl max-w-2xl font-normal leading-relaxed will-change-transform">
-            Substitua a confusão de mensagens e os agendamentos manuais por um sistema que trabalha por você. Dê aos seus clientes uma experiência profissional enquanto você foca no que realmente importa: o seu serviço.
+          <p className="hero-p font-sans text-slate-600 text-lg sm:text-xl max-w-2xl font-light leading-relaxed will-change-transform">
+            Sistemas sob medida e plataformas SaaS para impulsionar Clínicas, Profissionais Liberais e Indústrias B2B. Acelere suas vendas e saia do operacional hoje mesmo.
           </p>
 
           {/* CTAs */}
-          <div className="hero-ctas flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4 will-change-transform">
-            <Button
-              variant="primary"
-              size="xl"
-              rightIcon={<ArrowRight className="w-5 h-5" />}
-              onClick={() => {
-                const ctaSection = document.getElementById('orcamento');
-                ctaSection?.scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              Quero Profissionalizar Meu Negócio
-            </Button>
-            <Button
-              variant="surface"
-              size="xl"
-              onClick={() => {
-                const projectsSection = document.getElementById('projetos');
-                projectsSection?.scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              Ver Como Funciona
-            </Button>
+          <div className="hero-ctas flex flex-col pt-4 will-change-transform">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+              <Button
+                variant="primary"
+                size="xl"
+                rightIcon={<ArrowRight className="w-5 h-5" />}
+                onClick={() => {
+                  const ctaSection = document.getElementById('orcamento');
+                  ctaSection?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                Quero Profissionalizar Meu Negócio
+              </Button>
+              <Button
+                variant="surface"
+                size="xl"
+                onClick={() => {
+                  const projectsSection = document.getElementById('projetos');
+                  projectsSection?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                Ver Casos de Sucesso
+              </Button>
+            </div>
+            <p className="mt-4 text-xs text-slate-500 font-medium flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              Disponível para novos projetos
+            </p>
           </div>
 
           {/* Trust Metrics Banner */}
@@ -134,7 +140,7 @@ export const HeroSection: React.FC = () => {
         <div className="hero-3d-card lg:col-span-5 relative flex items-center justify-center will-change-transform">
           <Suspense
             fallback={
-              <div className="w-full h-[400px] glass-panel rounded-3xl flex flex-col items-center justify-center gap-3">
+              <div className="w-full h-[400px] sm:h-[500px] lg:h-[550px] glass-panel rounded-3xl flex flex-col items-center justify-center gap-3">
                 <div className="w-8 h-8 border-2 border-sky-500 border-t-transparent rounded-full animate-spin" />
                 <span className="text-xs text-slate-500 font-medium">Carregando Experiência...</span>
               </div>
