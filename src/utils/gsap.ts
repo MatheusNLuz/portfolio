@@ -4,6 +4,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 // Register GSAP Plugins once
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
+  gsap.defaults({
+    force3D: true,
+  });
 }
 
 export { gsap, ScrollTrigger };

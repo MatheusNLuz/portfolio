@@ -12,7 +12,8 @@ export const HeroSection: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   
   useGSAP(() => {
-    const tl = gsap.timeline();
+    // Adding a delay gives the main thread time to breathe after hydration, avoiding jank
+    const tl = gsap.timeline({ delay: 0.4 });
     
     tl.from('.hero-badge', {
       y: 20,
