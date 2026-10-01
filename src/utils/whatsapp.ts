@@ -1,36 +1,24 @@
 import { COMPANY } from '@/constants/company';
-import { WizardData } from '@/types/wizard';
+import type { ProjectBriefData, ProjectInterest } from '@/types/contact';
 
-/**
- * Builds the custom encoded WhatsApp click-to-chat URL with full scope details.
- */
-export function buildWhatsAppUrl(data?: Partial<WizardData>): string {
-  const phone = COMPANY.whatsappPhone; // e.g. "5511999999999"
+const interestLabels: Record<ProjectInterest, string> = {
+  automation: 'Automação e integrações',
+  'custom-software': 'Software sob medida',
+  saas: 'Produto SaaS',
+};
 
-  if (!data || !data.name) {
-    const defaultText = `Olá! Gostaria de conversar sobre um projeto de desenvolvimento de sistema/site para minha empresa.`;
-    return `https://wa.me/${phone}?text=${encodeURIComponent(defaultText)}`;
-  }
-
-  const messageLines = [
-    `[NOVO ORÇAMENTO] *Software House*`,
-    ``,
-    `*Cliente:* ${data.name || 'Não informado'}`,
-    `*Empresa:* ${data.company || 'Não informado'}`,
-    `*Segmento:* ${data.segment || 'Não informado'}`,
-    `*Tamanho da Empresa:* ${data.employees || 'Não informado'}`,
-    ``,
-    `[ESCOPO SOLICITADO]`,
-    `- *Objetivo:* ${data.projectType || 'Desenvolvimento Personalizado'}`,
-    `- *Já possui sistema:* ${data.hasExistingSystem ? 'Sim' : 'Não'}`,
-    `- *Desafio/Problema:* ${data.currentProblem || 'Economia de tempo e automação'}`,
-    `- *Prazo Desejado:* ${data.deadline || 'Flexível'}`,
-    `- *Faixa de Investimento:* ${data.budgetRange || 'R$ 20.000+'}`,
-    `- *Canal Preferencial:* ${data.contactMethod || 'WhatsApp'}`,
-    ``,
-    `*Gostaria de agendar uma reunião inicial para alinhar o escopo e contrato.*`,
+export function buildWhatsAppUrl(data: ProjectBriefData): string {
+  const lines = [
+    'Olá, Matheus! Vim pelo seu site e gostaria de conversar.',
+    '',
+    `Tenho interesse em: ${interestLabels[data.interest]}.`,
   ];
 
-  const fullText = messageLines.join('\n');
-  return `https://wa.me/${phone}?text=${encodeURIComponent(fullText)}`;
+  const description = data.description?.trim();
+  const name = data.name?.trim();
+
+  if (description) lines.push('', `Um pouco sobre o que preciso: ${description}`);
+  if (name) lines.push('', `Meu nome: ${name}`);
+
+  return `${COMPANY.whatsapp}?text=${encodeURIComponent(lines.join('\n'))}`;
 }

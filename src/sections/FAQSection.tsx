@@ -1,105 +1,76 @@
 import React, { useState } from 'react';
-import { Badge } from '@/components/ui/Badge';
-import { FAQItem } from '@/types/project';
-import { HelpCircle, ChevronDown } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { cn } from '@/utils/cn';
 
+const faqs = [
+  {
+    id: 'inicio',
+    question: 'Como começa uma conversa sobre um projeto?',
+    answer:
+      'Você pode contar, em poucas palavras, o que gostaria de melhorar. A partir desse contexto, conversamos sobre o problema e os próximos passos possíveis.',
+  },
+  {
+    id: 'direcao',
+    question: 'E se eu ainda não souber qual solução preciso?',
+    answer:
+      'Tudo bem. Você não precisa chegar com uma solução definida. A conversa pode começar pelo processo, pela dificuldade ou pela ideia que quer explorar.',
+  },
+  {
+    id: 'formatos',
+    question: 'Qual a diferença entre um sistema sob medida e o PapinhIA?',
+    answer:
+      'Um sistema sob medida parte de uma necessidade específica e é pensado para aquele contexto. O PapinhIA é um produto próprio, com uma proposta já definida para quem busca uma solução pronta.',
+  },
+  {
+    id: 'automacao',
+    question: 'Automação e integração também podem ser conversadas?',
+    answer:
+      'Sim. Se há tarefas repetitivas ou ferramentas que não se conectam bem, esse pode ser um bom ponto de partida para entender o que faz sentido automatizar.',
+  },
+];
+
 export const FAQSection: React.FC = () => {
-  const [openId, setOpenId] = useState<string | null>('faq-1');
-
-  const faqs: FAQItem[] = [
-    {
-      id: 'faq-1',
-      question: 'Qual é o valor mínimo de investimento para um projeto?',
-      answer: 'Temos soluções para diferentes momentos do seu negócio. Nossos sistemas por assinatura (SaaS) possuem valores mensais bastante acessíveis para que você comece rápido. Já para os projetos de desenvolvimento sob medida, realizamos um orçamento detalhado com base na complexidade e exclusividade que a sua empresa exige.',
-      category: 'Investimento',
-    },
-    {
-      id: 'faq-2',
-      question: 'Qual o tempo médio de desenvolvimento?',
-      answer: 'Projetos de médio porte costumam levar de 4 a 8 semanas, divididos em sprints semanais de entrega contínua. Você acompanha o progresso em um ambiente de homologação ao vivo a cada 7 dias.',
-      category: 'Processo',
-    },
-    {
-      id: 'faq-3',
-      question: 'Eu terei que pagar mensalidades após a entrega?',
-      answer: 'Não. Ao contrário de softwares de prateleira, o sistema desenvolvido é 100% de propriedade da sua empresa. Você não paga mensalidades por usuário nem licenças recorrentes. Apenas os custos diretos de infraestrutura (como hospedagem cloud), que costumam ser mínimos.',
-      category: 'Investimento',
-    },
-    {
-      id: 'faq-4',
-      question: 'Como funciona a garantia e o suporte técnico pós-lançamento?',
-      answer: 'Todos os nossos projetos contam com garantia contratual de 90 dias contra qualquer inconsistência de código. Além disso, oferecemos planos opcionais de evolução contínua e suporte prioritário.',
-      category: 'Suporte',
-    },
-    {
-      id: 'faq-5',
-      question: 'Sua empresa assina acordo de confidencialidade (NDA)?',
-      answer: 'Sim, obrigatoriamente. Antes de discutir detalhes estratégicos do seu modelo de negócio ou dados operacionais, assinamos um Acordo de Confidencialidade (NDA) garantindo total sigilo.',
-      category: 'Processo',
-    },
-  ];
-
-  const toggleFAQ = (id: string) => {
-    setOpenId(openId === id ? null : id);
-  };
+  const [openId, setOpenId] = useState<string | null>('inicio');
 
   return (
-    <section id="faq" className="py-24 px-4 sm:px-8 relative bg-[#f8fafc] border-t border-slate-200">
-      <div className="max-w-4xl mx-auto space-y-16">
-        {/* Section Header */}
-        <div className="text-center space-y-4 max-w-2xl mx-auto">
-          <Badge variant="accent" icon={<HelpCircle className="w-3.5 h-3.5 text-white" />}>
-            Esclarecimento de Dúvidas
-          </Badge>
-          <h2 className="font-display font-bold text-3xl sm:text-4xl text-slate-900 tracking-tight">
-            Perguntas Frequentes
-          </h2>
-          <p className="text-slate-600 text-base">
-            Tudo o que você precisa saber antes de contratar o desenvolvimento do seu sistema.
+    <section id="faq" className="border-t border-brand-blue-gray px-4 py-20 sm:px-8 sm:py-28">
+      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+        <div className="space-y-4 lg:sticky lg:top-28 lg:self-start">
+          <span className="inline-flex items-center gap-2 font-mono text-[10px] font-semibold tracking-[0.16em] text-brand-cobalt"><span aria-hidden="true" className="size-2 rounded-full bg-brand-signal" /> DÚVIDAS COMUNS</span>
+          <h2 className="text-3xl font-semibold tracking-[-0.045em] sm:text-5xl">Antes de começar.</h2>
+          <p className="max-w-sm text-sm leading-6 text-brand-muted sm:text-base sm:leading-7">
+            Algumas respostas para você chegar à conversa com mais contexto.
           </p>
         </div>
 
-        {/* Accordion List */}
-        <div className="space-y-4">
-          {faqs.map((faq) => {
+        <div className="divide-y divide-brand-blue-gray border-y border-brand-blue-gray">
+          {faqs.map((faq, index) => {
             const isOpen = openId === faq.id;
+            const panelId = `faq-panel-${faq.id}`;
             return (
-              <div
-                key={faq.id}
-                className={cn(
-                  'p-0 border border-slate-200 transition-all overflow-hidden rounded-2xl bg-white',
-                  isOpen ? 'border-l-4 border-l-blue-900 shadow-sm' : ''
-                )}
-              >
-                <button
-                  onClick={() => toggleFAQ(faq.id)}
-                  aria-expanded={isOpen}
-                  aria-controls={`faq-answer-${faq.id}`}
-                  className="w-full p-6 text-left flex items-center justify-between gap-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-900 rounded-2xl"
-                >
-                  <span className="font-display font-semibold text-lg text-slate-900">
-                    {faq.question}
-                  </span>
-                  <div
-                    className={cn(
-                      'w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center shrink-0 transition-transform duration-300',
-                      isOpen && 'rotate-180 bg-slate-800 text-white'
-                    )}
+              <article key={faq.id} className="faq-item">
+                <h3>
+                  <button
+                    type="button"
+                    id={`faq-trigger-${faq.id}`}
+                    aria-expanded={isOpen}
+                    aria-controls={panelId}
+                    onClick={() => setOpenId(isOpen ? null : faq.id)}
+                    className="flex min-h-16 w-full items-center justify-between gap-4 py-5 text-left focus-visible:rounded-md"
                   >
-                    <ChevronDown className={cn("w-4 h-4", isOpen ? "text-white" : "text-slate-500")} />
-                  </div>
-                </button>
-
-                {isOpen && (
-                  <div
-                    id={`faq-answer-${faq.id}`}
-                    className="px-6 pb-6 pt-2 text-slate-700 text-sm leading-relaxed border-t border-slate-200 animate-in fade-in slide-in-from-top-2"
-                  >
-                    {faq.answer}
-                  </div>
-                )}
-              </div>
+                    <span className="flex items-start gap-4 text-base font-medium leading-6 text-brand-ink">
+                      <span aria-hidden="true" className="mt-0.5 font-mono text-[10px] tracking-wider text-brand-cobalt">0{index + 1}</span>
+                      {faq.question}
+                    </span>
+                    <span className={cn('grid size-9 shrink-0 place-items-center rounded-full border border-brand-blue-gray transition-colors', isOpen && 'border-brand-cobalt bg-brand-cobalt text-white')}>
+                      <ChevronDown aria-hidden="true" className={cn('size-4 transition-transform duration-200', isOpen && 'rotate-180')} />
+                    </span>
+                  </button>
+                </h3>
+                <div id={panelId} role="region" aria-labelledby={`faq-trigger-${faq.id}`} hidden={!isOpen} className="pb-6 pl-9 pr-12 text-[15px] leading-6 text-brand-muted sm:text-base">
+                  {faq.answer}
+                </div>
+              </article>
             );
           })}
         </div>

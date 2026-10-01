@@ -1,170 +1,101 @@
-import React, { Suspense, lazy, useRef } from 'react';
-import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/Badge';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import React, { useRef } from 'react';
+import { ArrowDownRight, ArrowUpRight } from 'lucide-react';
+import { COMPANY } from '@/constants/company';
+import { WorkflowDiagram } from '@/components/ui/WorkflowDiagram';
+import { Logo } from '@/components/ui/Logo';
+import { SITE_INTRO_REVEAL_EVENT } from '@/constants/motion';
 import { useGSAP } from '@gsap/react';
 import { gsap } from '@/utils/gsap';
 
-// Lazy loading the R3F 3D Canvas component to optimize FCP
-const BusinessCardScene = lazy(() => import('@/features/hero-3d/BusinessCardScene'));
-
 export const HeroSection: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [show3D, setShow3D] = React.useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
-  React.useEffect(() => {
-    // Only mount the heavy 3D scene after the initial text animation completes
-    const timer = setTimeout(() => setShow3D(true), 1500);
-    return () => clearTimeout(timer);
-  }, []);
-  
-  useGSAP(() => {
-    // Adding a delay gives the main thread time to breathe after hydration, avoiding jank
-    const tl = gsap.timeline({ delay: 0.4 });
-    
-    tl.from('.hero-badge', {
-      y: 20,
-      opacity: 0,
-      duration: 0.6,
-      ease: 'power3.out',
-    })
-    .from('.hero-title', {
-      y: 30,
-      opacity: 0,
-      duration: 0.8,
-      ease: 'power3.out',
-    }, '-=0.4')
-    .from('.hero-subtitle', {
-      y: 20,
-      opacity: 0,
-      duration: 0.8,
-      ease: 'power3.out',
-    }, '-=0.6')
-    .from('.hero-ctas', {
-      y: 20,
-      opacity: 0,
-      duration: 0.6,
-      ease: 'power3.out',
-    }, '-=0.4')
-    .from('.hero-stats', {
-      y: 20,
-      opacity: 0,
-      duration: 0.6,
-      stagger: 0.1,
-      ease: 'power3.out',
-    }, '-=0.4')
-    .from('.hero-3d-card', {
-      scale: 0.8,
-      opacity: 0,
-      duration: 1,
-      ease: 'back.out(1.5)',
-    }, '-=0.8');
-  }, { scope: containerRef });
+  useGSAP((_, contextSafe) => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  const stats = [
-    { value: '+Tempo', label: 'Livre na sua rotina' },
-    { value: 'Zero', label: 'Caos no WhatsApp' },
-    { value: '24/7', label: 'Vendas Automáticas' }
-  ];
+    const section = sectionRef.current;
+    if (!section || !contextSafe) return;
+
+    const startEntrance = contextSafe(() => {
+      const route = section.querySelector<SVGPathElement>('.workflow-route');
+      const marker = section.querySelector<SVGCircleElement>('#workflow-marker');
+      const markerHalo = section.querySelector<SVGCircleElement>('#workflow-marker-halo');
+      const markPaths = section.querySelectorAll<SVGPathElement>('.hero-mark .logo-mark-path');
+      const markAccent = section.querySelector<SVGCircleElement>('.hero-mark .logo-accent');
+      const revealItems = section.querySelectorAll<HTMLElement>('.hero-reveal');
+      const nodes = section.querySelectorAll<SVGGElement>('.workflow-node');
+      if (!route || !marker || !revealItems.length) return;
+
+      const routeLength = route.getTotalLength();
+      const travel = { progress: 0 };
+      gsap.set(route, { strokeDasharray: routeLength, strokeDashoffset: routeLength });
+
+      const intro = gsap.timeline({ defaults: { ease: 'power3.out' } });
+      intro.fromTo(revealItems, { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.65, stagger: 0.1 }, 0);
+      intro.fromTo(nodes, { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.48, stagger: 0.1, ease: 'power3.out' }, 0.08);
+      markPaths.forEach((path, index) => {
+        const length = path.getTotalLength();
+        gsap.set(path, { strokeDasharray: length, strokeDashoffset: length });
+        intro.to(path, { strokeDashoffset: 0, duration: 0.55, ease: 'power2.out' }, 0.06 + index * 0.12);
+      });
+      if (markAccent) intro.fromTo(markAccent, { autoAlpha: 0, scale: 0, transformOrigin: '50% 50%' }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: 'back.out(2)' }, 0.4);
+      intro.to(route, { strokeDashoffset: 0, duration: 1.6, ease: 'power2.inOut' }, 0.12);
+      intro.to(travel, {
+        progress: 1,
+        duration: 1.75,
+        ease: 'power1.inOut',
+        onUpdate: () => {
+          const point = route.getPointAtLength(routeLength * travel.progress);
+          marker.setAttribute('cx', String(point.x));
+          marker.setAttribute('cy', String(point.y));
+          markerHalo?.setAttribute('cx', String(point.x));
+          markerHalo?.setAttribute('cy', String(point.y));
+        },
+      }, 0.25);
+    });
+
+    window.addEventListener(SITE_INTRO_REVEAL_EVENT, startEntrance, { once: true });
+    return () => window.removeEventListener(SITE_INTRO_REVEAL_EVENT, startEntrance);
+  }, { scope: sectionRef });
 
   return (
-    <section ref={containerRef} className="relative min-h-screen pt-32 pb-20 px-4 sm:px-8 flex items-center overflow-hidden bg-[#f8fafc]">
-      <div className="absolute inset-0 dot-grid opacity-30 z-0" />
-      {/* Aurora Orbs */}
-      <div className="aurora-orb-1 top-[-10%] left-[-10%]"></div>
-      <div className="aurora-orb-2 bottom-[-10%] right-[-10%]"></div>
-      <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10">
-        {/* Left Column: Copywriting & CRO CTA */}
-        <div className="lg:col-span-7 space-y-8 text-left">
-          {/* Badge */}
-          <div className="hero-badge inline-flex items-center will-change-transform">
-            <Badge variant="accent" icon={<Sparkles className="w-3.5 h-3.5 text-blue-400" />}>
-              SaaS & Projetos Sob Medida
-            </Badge>
-          </div>
-
-          {/* Title */}
-          <h1 className="hero-title font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl text-slate-900 tracking-tight leading-[1.1] will-change-transform">
-            Seu negócio local finalmente organizado e vendendo no <em className="text-gradient-aurora italic not-italic">automático.</em>
-          </h1>
-
-          {/* Subtitle */}
-          <p className="hero-p font-sans text-slate-600 text-lg sm:text-xl max-w-2xl font-light leading-relaxed will-change-transform">
-            Sistemas sob medida e plataformas SaaS para impulsionar Clínicas, Profissionais Liberais e Indústrias B2B. Acelere suas vendas e saia do operacional hoje mesmo.
-          </p>
-
-          {/* CTAs */}
-          <div className="hero-ctas flex flex-col pt-4 will-change-transform">
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-              <Button
-                variant="primary"
-                size="xl"
-                rightIcon={<ArrowRight className="w-5 h-5" />}
-                onClick={() => {
-                  const ctaSection = document.getElementById('orcamento');
-                  ctaSection?.scrollIntoView({ behavior: 'smooth' });
-                }}
-              >
-                Quero Profissionalizar Meu Negócio
-              </Button>
-              <Button
-                variant="surface"
-                size="xl"
-                onClick={() => {
-                  const projectsSection = document.getElementById('projetos');
-                  projectsSection?.scrollIntoView({ behavior: 'smooth' });
-                }}
-              >
-                Ver Casos de Sucesso
-              </Button>
-            </div>
-            <p className="mt-4 text-xs text-slate-500 font-medium flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              Disponível para novos projetos
-            </p>
-          </div>
-
-          {/* Trust Metrics Banner */}
-          <div className="pt-8 border-t border-slate-200 flex flex-wrap items-center gap-4 text-slate-600">
-            {stats.map((stat, idx) => (
-              <React.Fragment key={idx}>
-                <div className="hero-stats flex items-baseline gap-2 will-change-transform">
-                  <span className="font-mono font-bold text-xl sm:text-2xl text-slate-900">
-                    {stat.value}
-                  </span>
-                  <span className="font-sans text-xs font-medium leading-tight uppercase tracking-wider">
-                    {stat.label}
-                  </span>
-                </div>
-                {idx < stats.length - 1 && (
-                  <span className="hero-stats w-1.5 h-1.5 rounded-full bg-slate-300 will-change-transform" />
-                )}
-              </React.Fragment>
-            ))}
-          </div>
+  <section id="inicio" ref={sectionRef} className="relative overflow-hidden px-4 pb-16 pt-32 sm:px-8 sm:pb-24 sm:pt-40">
+    <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-8">
+      <div className="hero-copy max-w-2xl">
+        <div className="hero-reveal mb-7 inline-flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.19em] text-brand-muted">
+          <Logo className="hero-mark h-9 w-9 shrink-0 text-brand-ink" />
+          Tecnologia prática
         </div>
-
-        {/* Right Column: Interactive 3D Business Card */}
-        <div className="hero-3d-card lg:col-span-5 relative flex items-center justify-center will-change-transform">
-          {show3D ? (
-            <Suspense
-              fallback={
-                <div className="w-full h-[400px] sm:h-[500px] lg:h-[550px] glass-panel rounded-3xl flex flex-col items-center justify-center gap-3">
-                  <div className="w-8 h-8 border-2 border-sky-500 border-t-transparent rounded-full animate-spin" />
-                  <span className="text-xs text-slate-500 font-medium">Carregando Experiência...</span>
-                </div>
-              }
-            >
-              <BusinessCardScene />
-            </Suspense>
-          ) : (
-            <div className="w-full h-[400px] sm:h-[500px] lg:h-[550px] glass-panel rounded-3xl flex flex-col items-center justify-center gap-3">
-              <div className="w-8 h-8 border-2 border-sky-500 border-t-transparent rounded-full animate-spin" />
-              <span className="text-xs text-slate-500 font-medium">Carregando Experiência...</span>
-            </div>
-          )}
+        <h1 className="hero-reveal max-w-[11ch] text-balance text-5xl font-semibold leading-[0.98] tracking-[-0.04em] text-brand-ink sm:text-6xl lg:text-[4.7rem]">
+          {COMPANY.heroHeadline}
+        </h1>
+        <p className="hero-reveal mt-7 max-w-xl text-pretty text-base leading-7 text-brand-muted sm:text-lg sm:leading-8">
+          {COMPANY.heroSubheadline}
+        </p>
+        <div className="hero-reveal mt-9 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-5">
+          <a
+            href="#contato"
+            className="inline-flex min-h-12 items-center justify-center gap-3 rounded-md bg-brand-cobalt px-6 text-sm font-semibold text-white transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-[#1c43b4] focus-visible:outline-offset-4"
+          >
+            Me conte o que precisa <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+          </a>
+          <a
+            href="#projetos"
+            className="inline-flex min-h-11 items-center gap-2 rounded-md px-2 text-sm font-semibold text-brand-ink transition-colors hover:text-brand-cobalt focus-visible:text-brand-cobalt"
+          >
+            Conheça o PapinhIA <ArrowDownRight aria-hidden="true" className="h-4 w-4 text-brand-cobalt" />
+          </a>
+        </div>
+        <div className="hero-reveal mt-12 flex flex-wrap gap-x-5 gap-y-2 border-t border-brand-blue-gray pt-5 font-mono text-[10px] uppercase tracking-[0.12em] text-brand-muted sm:text-[11px]">
+          <span>Automação</span><span aria-hidden="true" className="text-brand-signal">/</span>
+          <span>Software sob medida</span><span aria-hidden="true" className="text-brand-signal">/</span>
+          <span>Produtos SaaS</span>
         </div>
       </div>
-    </section>
+      <div className="relative mx-auto w-full max-w-[40rem] lg:max-w-none">
+        <WorkflowDiagram />
+      </div>
+    </div>
+  </section>
   );
 };

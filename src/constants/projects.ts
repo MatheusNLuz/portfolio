@@ -7,7 +7,7 @@ export const PROJECTS: ProjectCase[] = [
     client: 'Produto Próprio (SaaS)',
     category: 'Plataforma SaaS',
     description:
-      'Uma plataforma completa para auxiliar pais na fase de Introdução Alimentar (IA) de seus bebês. A inteligência do sistema remove a fricção de não saber "o que e como fazer" durante esse período importante.',
+      'Uma plataforma de apoio à introdução alimentar que ajuda famílias a lidar com a dúvida sobre o que oferecer e como começar.',
     metrics: [
       { label: 'Modelo', value: 'SaaS' },
       { label: 'Nichos', value: 'B2C / Famílias' },
@@ -15,6 +15,21 @@ export const PROJECTS: ProjectCase[] = [
     ],
     tags: ['Next.js', 'React', 'Tailwind', 'SaaS', 'Inteligência Artificial'],
     image: '/papinhia.jpg',
+    detailsLabel: 'Tecnologias',
     featured: true,
-  }
+  },
+  {
+    id: 'curriculy',
+    title: 'Curriculy',
+    client: 'Produto próprio',
+    category: 'Sistema Web',
+    description:
+      'Um espaço para visualizar currículos, iniciar novas análises e acompanhar o histórico, com mais clareza sobre os próximos passos profissionais.',
+    url: 'https://curriculy.onrender.com/',
+    image: '/curriculy-home.png',
+    metrics: [],
+    tags: ['Currículos', 'Análises', 'Carreira'],
+    detailsLabel: 'No produto',
+    featured: true,
+  },
 ];
