@@ -10,38 +10,21 @@ export interface SEOHeadProps {
 }
 
 export const SEOHead: React.FC<SEOHeadProps> = ({
-  title = `${COMPANY.name} | Sistemas Inteligentes para Empresas que Querem Crescer`,
+  title = `Automação, software e produtos SaaS | ${COMPANY.name}`,
   description = COMPANY.subtagline,
   canonicalUrl = COMPANY.siteUrl,
   ogImage = `${COMPANY.siteUrl}/og-image.jpg`,
 }) => {
   const jsonLdSchema = {
     '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
+    '@type': 'Person',
     name: COMPANY.name,
     url: COMPANY.siteUrl,
-    logo: `${COMPANY.siteUrl}/logo.png`,
     description: COMPANY.subtagline,
-    telephone: COMPANY.whatsappPhone,
-    email: COMPANY.email,
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: 'São Paulo',
-      addressRegion: 'SP',
-      addressCountry: 'BR',
-    },
-    openingHoursSpecification: [
-      {
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-        opens: '08:00',
-        closes: '19:00',
-      }
-    ],
+    jobTitle: 'Engenheiro de Software',
+    telephone: `+${COMPANY.whatsappPhone}`,
     sameAs: [COMPANY.social.linkedin, COMPANY.social.github],
-    priceRange: '$$$',
-    areaServed: 'BR',
-    knowsAbout: ['Automação de Processos', 'Software para Clínicas', 'Sistemas de Agendamento', 'Desenvolvimento Web'],
+    knowsAbout: ['Automação de processos', 'Software sob medida', 'Produtos SaaS'],
   };
 
   return (

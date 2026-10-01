@@ -1,139 +1,87 @@
 import React, { useRef } from 'react';
-import { GlassContainer } from '@/components/ui/GlassContainer';
-import { Badge } from '@/components/ui/Badge';
-import { Button } from '@/components/ui/Button';
-import { createStaggerReveal } from '@/utils/gsap';
-import { Calendar, ShoppingBag, LayoutTemplate, Zap, Check, ArrowRight } from 'lucide-react';
+import { ArrowRight, Blocks, Code2, Workflow } from 'lucide-react';
 import { useGSAP } from '@gsap/react';
+import { gsap } from '@/utils/gsap';
+
+const services = [
+  {
+    id: 'automacao',
+    eyebrow: 'Menos repetição',
+    title: 'Automação e integrações',
+    description: 'Conecto etapas e ferramentas para reduzir tarefas repetidas e manter a operação em movimento.',
+    icon: Workflow,
+  },
+  {
+    id: 'sistemas',
+    eyebrow: 'Feito para o contexto',
+    title: 'Software sob medida',
+    description: 'Desenvolvo sistemas que acompanham as regras e as necessidades do seu negócio.',
+    icon: Code2,
+  },
+  {
+    id: 'saas',
+    eyebrow: 'Produtos próprios',
+    title: 'Produtos SaaS',
+    description: 'Crio produtos digitais como o PapinhIA, aproximando tecnologia de necessidades do dia a dia.',
+    icon: Blocks,
+  },
+];
 
 export const SolutionsSection: React.FC = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
-
-  const localServices = [
-    {
-      id: 'saas',
-      title: 'Sistemas por Assinatura (SaaS)',
-      description: 'Você precisa de uma solução validada, rápida e de baixo custo inicial? Alugue um de nossos sistemas prontos para uso (ex: Agendamentos, Cardápios) com pagamento mensal.',
-      iconName: 'ShoppingBag',
-      benefits: ['Baixo investimento inicial', 'Atualizações e suporte inclusos', 'Pronto para usar hoje mesmo'],
-      deliverables: ['Acesso Imediato', 'Manutenção Inclusa', 'Treinamento Básico'],
-    },
-    {
-      id: 'sob-medida',
-      title: 'Desenvolvimento Sob Medida',
-      description: 'Sua operação tem regras únicas que nenhum sistema de prateleira resolve? Desenvolvemos do zero uma plataforma exclusiva que atende 100% dos seus processos.',
-      iconName: 'LayoutTemplate',
-      benefits: ['100% aderente aos seus processos', 'Vantagem competitiva exclusiva', 'O código-fonte é seu'],
-      deliverables: ['Arquitetura Enterprise', 'UI/UX Exclusiva', 'Integrações Customizadas'],
-    },
-    {
-      id: 'consultoria',
-      title: 'Auditoria e Refatoração',
-      description: 'Já tem um sistema rodando, mas ele está lento, cheio de bugs ou não converte? Analisamos seu código e refatoramos a aplicação usando as melhores práticas de mercado (React, GSAP, Tailwind).',
-      iconName: 'Calendar',
-      benefits: ['Aumento imediato de velocidade (60fps)', 'Melhoria na conversão e UX', 'Código sustentável e limpo'],
-      deliverables: ['Relatório de Auditoria', 'Refatoração de Código', 'Testes de Carga'],
-    }
-  ];
-
-  const iconMap: Record<string, React.ReactNode> = {
-    Calendar: <Calendar className="w-6 h-6 text-slate-800" />,
-    ShoppingBag: <ShoppingBag className="w-6 h-6 text-slate-800" />,
-    LayoutTemplate: <LayoutTemplate className="w-6 h-6 text-slate-800" />,
-  };
+  const sectionRef = useRef<HTMLElement>(null);
 
   useGSAP(() => {
-    if (gridRef.current) {
-      createStaggerReveal(gridRef.current.children, {
-        trigger: sectionRef.current,
-        start: 'top 80%',
-        stagger: 0.15,
-      });
-    }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const rows = sectionRef.current?.querySelectorAll<HTMLElement>('.service-row');
+    if (!rows?.length) return;
+
+    gsap.fromTo(rows, { autoAlpha: 0, y: 14 }, {
+      autoAlpha: 1,
+      y: 0,
+      duration: 0.55,
+      stagger: 0.1,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: sectionRef.current, start: 'top 72%', once: true },
+    });
   }, { scope: sectionRef });
 
   return (
-    <section id="solucoes" ref={sectionRef} className="overflow-hidden py-24 px-4 sm:px-8 relative bg-[#f8fafc] border-t border-slate-200">
-      <div className="aurora-orb-1 top-0 left-[-10%]"></div>
-      <div className="aurora-orb-2 bottom-0 right-[-10%]"></div>
-      <div className="max-w-7xl mx-auto space-y-16">
-        {/* Section Header */}
-        <div className="text-center space-y-4 max-w-3xl mx-auto">
-          <Badge variant="accent" icon={<Zap className="w-3.5 h-3.5 text-sky-500" />}>
-            O que fazemos
-          </Badge>
-          <h2 className="font-display font-bold text-3xl sm:text-4xl text-slate-900 tracking-tight">
-            Ferramentas práticas para o seu dia a dia
-          </h2>
-          <p className="font-sans text-slate-600 text-base sm:text-lg">
-            Soluções flexíveis para o momento do seu negócio: alugue uma ferramenta validada ou construa a sua plataforma proprietária do zero.
+  <section id="solucoes" ref={sectionRef} className="border-t border-brand-blue-gray px-4 py-20 sm:px-8 sm:py-28">
+    <div className="mx-auto max-w-7xl">
+      <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:gap-20">
+        <div className="max-w-xl lg:sticky lg:top-28 lg:self-start">
+          <p className="mb-4 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-brand-cobalt">O que eu faço</p>
+          <h2 className="max-w-xl text-balance text-3xl font-semibold leading-tight tracking-[-0.04em] sm:text-5xl">Escolha o próximo passo.</h2>
+          <p className="mt-5 max-w-md text-base leading-7 text-brand-muted">
+            Da tarefa que se repete ao produto que ainda não existe: a solução começa pelo que precisa funcionar melhor.
           </p>
         </div>
-
-        {/* Services Bento Grid */}
-        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {localServices.map((service, index) => {
-            const isFirst = index === 0;
-            return (
-              <GlassContainer
-                key={service.id}
-                className={`flex flex-col justify-between space-y-6 glass-panel border-slate-200 p-8 will-change-transform ${
-                  isFirst ? 'lg:col-span-2' : ''
-                }`}
-              >
-                <div className="space-y-4">
-                  <div className="w-12 h-12 rounded-2xl bg-slate-100 border border-slate-200 flex items-center justify-center">
-                    {iconMap[service.iconName] || <Zap className="w-6 h-6 text-slate-800" />}
-                  </div>
-
-                  <h3 className="font-display font-bold text-2xl text-slate-900">
-                    {service.title}
-                  </h3>
-
-                  <p className="font-sans text-slate-600 text-sm leading-relaxed">
-                    {service.description}
-                  </p>
-
-                  {/* Benefits */}
-                  <div className="space-y-2 pt-2">
-                    <span className="font-sans text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                      Como isso te ajuda:
-                    </span>
-                    {service.benefits.map((benefit, idx) => (
-                      <div key={idx} className="flex items-center gap-2 text-xs text-slate-700">
-                        <Check className="w-4 h-4 text-slate-800 shrink-0" />
-                        <span>{benefit}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Deliverables & Action */}
-                <div className="pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
-                  <div className="text-xs text-slate-500 font-medium">
-                    <span className="text-slate-500">Você recebe:</span>{' '}
-                    <span className="text-slate-700 font-semibold">
-                      {service.deliverables.join(' • ')}
-                    </span>
-                  </div>
-                  <Button
-                    variant="surface"
-                    size="sm"
-                    rightIcon={<ArrowRight className="w-3.5 h-3.5" />}
-                    onClick={() => {
-                      const ctaSection = document.getElementById('orcamento');
-                      ctaSection?.scrollIntoView({ behavior: 'smooth' });
-                    }}
-                  >
-                    Saber Mais
-                  </Button>
-                </div>
-              </GlassContainer>
-            );
-          })}
-        </div>
+      <div className="border-t border-brand-blue-gray">
+        {services.map(({ id, eyebrow, title, description, icon: Icon }, index) => (
+          <article id={id} key={id} className="service-row group border-b border-brand-blue-gray">
+            <a
+              href="#contato"
+              aria-label={`Conversar sobre ${title.toLowerCase()}`}
+              className="grid min-h-[7.5rem] grid-cols-[2.5rem_1fr_auto] items-center gap-4 py-5 text-brand-ink sm:min-h-[8.5rem] sm:grid-cols-[3.5rem_1fr_auto] sm:gap-6"
+            >
+              <span className="font-mono text-xs tracking-wider text-brand-muted">0{index + 1}</span>
+              <span className="flex min-w-0 items-start gap-3 sm:items-center sm:gap-5">
+                <span className="grid size-10 shrink-0 place-items-center rounded-full bg-white text-brand-cobalt transition-colors duration-200 group-hover:bg-brand-cobalt group-hover:text-white sm:size-12">
+                  <Icon aria-hidden="true" className="size-5" strokeWidth={1.7} />
+                </span>
+                <span className="min-w-0">
+                  <span className="block font-mono text-[9px] font-medium uppercase tracking-[0.14em] text-brand-muted">{eyebrow}</span>
+                  <span className="mt-1 block text-lg font-semibold leading-tight tracking-[-0.03em] sm:text-2xl">{title}</span>
+                  <span className="mt-1.5 block max-w-lg text-[15px] leading-6 text-brand-muted">{description}</span>
+                </span>
+              </span>
+              <ArrowRight aria-hidden="true" className="size-5 text-brand-cobalt transition-transform duration-200 group-hover:translate-x-1" />
+            </a>
+          </article>
+        ))}
       </div>
-    </section>
+    </div>
+    </div>
+  </section>
   );
 };

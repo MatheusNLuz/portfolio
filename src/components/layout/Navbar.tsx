@@ -1,122 +1,86 @@
-import React, { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/Button';
+import React, { useState } from 'react';
 import { COMPANY } from '@/constants/company';
-import { Menu, X, ArrowRight } from 'lucide-react';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { cn } from '@/utils/cn';
 import { Logo } from '@/components/ui/Logo';
 
 export const Navbar: React.FC = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   const navLinks = [
-    { label: 'Sobre Mim', href: '#sobre' },
-    { label: 'Projetos', href: '#projetos' },
-    { label: 'Soluções', href: '#solucoes' },
-    { label: 'Processo', href: '#processo' },
-    { label: 'FAQ', href: '#faq' },
+    { label: 'Automação', href: '#automacao' },
+    { label: 'Sistemas', href: '#sistemas' },
+    { label: 'SaaS', href: '#saas' },
+    { label: 'Sobre', href: '#sobre' },
   ];
 
   return (
-    <header
-      className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out py-4 px-4 sm:px-8',
-        isScrolled ? 'bg-white/80 backdrop-blur-md border-b border-slate-200 shadow-sm' : 'bg-transparent'
-      )}
-    >
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        {/* Brand Logo */}
-        <a href="#" className="flex items-center space-x-2 group">
-          <div className="text-slate-800 transition-transform group-hover:scale-105">
-            <Logo className="w-8 h-8" />
-          </div>
-          <div className="flex flex-col">
-            <span className="font-sans font-bold text-lg text-slate-900 leading-none tracking-tight">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-brand-ink/10 bg-brand-paper/95 px-4 py-3 backdrop-blur-md sm:px-8">
+      <div className="mx-auto flex min-h-12 max-w-7xl items-center justify-between gap-4">
+        <a href="#inicio" className="group inline-flex min-h-11 items-center gap-2.5 rounded-md text-brand-ink focus-visible:outline-offset-4">
+          <Logo className="h-9 w-9 transition-transform duration-200 group-hover:scale-[1.04]" />
+          <span className="flex flex-col">
+            <span className="font-display text-base font-bold leading-none tracking-tight sm:text-lg">
               {COMPANY.name}
             </span>
-            <span className="text-[10px] text-slate-500 tracking-wider uppercase font-semibold">
-              Software Engineer & Designer
+            <span className="mt-1 font-mono text-[9px] uppercase tracking-[0.16em] text-brand-muted">
+              Estúdio de tecnologia
             </span>
-          </div>
+          </span>
         </a>
 
-        {/* Desktop Navigation Links */}
-        <nav className={cn('hidden md:flex items-center gap-1 px-4 py-1.5 rounded-full', isScrolled ? 'bg-slate-100/50' : 'bg-white/50 backdrop-blur-sm border border-slate-200')}>
+        <nav aria-label="Navegação principal" className="hidden items-center gap-1 lg:flex">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="px-3 py-1.5 text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-blue-200/50 rounded-full transition-all"
+              className="inline-flex min-h-11 items-center rounded-md px-3 text-sm font-medium text-brand-muted transition-colors duration-200 hover:text-brand-cobalt focus-visible:text-brand-cobalt"
             >
               {link.label}
             </a>
           ))}
         </nav>
 
-        {/* CTA Button */}
-        <div className="hidden md:flex items-center gap-3">
-          <Button
-            variant="primary"
-            size="md"
-            rightIcon={<ArrowRight className="w-4 h-4" />}
-            onClick={() => {
-              const ctaSection = document.getElementById('orcamento');
-              ctaSection?.scrollIntoView({ behavior: 'smooth' });
-            }}
-          >
-            Solicitar Orçamento
-          </Button>
-        </div>
-
-        {/* Mobile Menu Toggle */}
-        <button
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label={isMobileMenuOpen ? 'Fechar menu' : 'Abrir menu'}
-          className="md:hidden p-2 text-slate-600 hover:text-slate-900 bg-white border border-slate-200 rounded-xl"
+        <a
+          href="#contato"
+          className="hidden min-h-11 items-center justify-center gap-2 rounded-md bg-brand-cobalt px-5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-[#1c43b4] focus-visible:outline-offset-4 lg:inline-flex"
         >
-          {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          Conversar <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+        </a>
+
+        <button
+          type="button"
+          onClick={() => setIsMobileMenuOpen((open) => !open)}
+          aria-label={isMobileMenuOpen ? 'Fechar menu' : 'Abrir menu'}
+          aria-expanded={isMobileMenuOpen}
+          aria-controls="mobile-navigation"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-brand-blue-gray text-brand-ink transition-colors hover:border-brand-cobalt hover:text-brand-cobalt focus-visible:outline-offset-4 lg:hidden"
+        >
+          {isMobileMenuOpen ? <X aria-hidden="true" className="h-5 w-5" /> : <Menu aria-hidden="true" className="h-5 w-5" />}
         </button>
       </div>
 
-      {/* Mobile Drawer */}
       {isMobileMenuOpen && (
-        <div className="md:hidden mt-3 bg-white border border-slate-200 rounded-2xl p-6 shadow-2xl flex flex-col gap-4 animate-in fade-in slide-in-from-top-4">
-          <nav className="flex flex-col gap-2">
+        <div id="mobile-navigation" className="mx-auto mt-3 max-w-7xl border-t border-brand-blue-gray py-3 lg:hidden">
+          <nav aria-label="Navegação móvel" className="flex flex-col gap-1">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="px-4 py-2.5 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-xl transition-all"
+                className="flex min-h-11 items-center rounded-md px-3 text-base font-medium text-brand-ink transition-colors hover:bg-white hover:text-brand-cobalt focus-visible:text-brand-cobalt"
               >
                 {link.label}
               </a>
             ))}
-          </nav>
-          <div className="pt-2 border-t border-slate-200">
-            <Button
-              variant="primary"
-              size="lg"
-              className="w-full"
-              rightIcon={<ArrowRight className="w-4 h-4" />}
-              onClick={() => {
-                setIsMobileMenuOpen(false);
-                const ctaSection = document.getElementById('orcamento');
-                ctaSection?.scrollIntoView({ behavior: 'smooth' });
-              }}
+            <a
+              href="#contato"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={cn('mt-2 inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-brand-cobalt px-5 text-sm font-semibold text-white transition-colors hover:bg-[#1c43b4]')}
             >
-              Solicitar Orçamento
-            </Button>
-          </div>
+              Conversar <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+            </a>
+          </nav>
         </div>
       )}
     </header>

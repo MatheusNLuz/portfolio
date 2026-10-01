@@ -4,12 +4,14 @@ export interface ProjectCase {
   client: string;
   category: 'Sistema Web' | 'Automação' | 'Plataforma SaaS' | 'Mobile App';
   description: string;
+  url?: string;
+  image?: string;
+  detailsLabel?: string;
   metrics: {
     label: string;
     value: string;
   }[];
   tags: string[];
-  image: string;
   featured: boolean;
 }
 
@@ -20,11 +22,4 @@ export interface ServiceSolution {
   iconName: string;
   benefits: string[];
   deliverables: string[];
-}
-
-export interface FAQItem {
-  id: string;
-  question: string;
-  answer: string;
-  category: 'Processo' | 'Investimento' | 'Suporte' | 'Tecnologia';
 }

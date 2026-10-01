@@ -1,121 +1,80 @@
 import React, { useRef } from 'react';
-import { Badge } from '@/components/ui/Badge';
-import { Button } from '@/components/ui/Button';
+import { ArrowUpRight } from 'lucide-react';
 import { PROJECTS } from '@/constants/projects';
-import { createStaggerReveal } from '@/utils/gsap';
-import { Briefcase, TrendingUp, ArrowRight } from 'lucide-react';
 import { useGSAP } from '@gsap/react';
+import { gsap } from '@/utils/gsap';
 
 export const ProjectsSection: React.FC = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useGSAP(() => {
-    if (cardsRef.current) {
-      createStaggerReveal(cardsRef.current.children, {
-        trigger: sectionRef.current,
-        start: 'top 80%',
-        stagger: 0.2,
-      });
-    }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const cards = sectionRef.current?.querySelectorAll<HTMLElement>('.project-card');
+    if (!cards?.length) return;
+
+    gsap.fromTo(cards, { autoAlpha: 0, y: 16 }, {
+      autoAlpha: 1,
+      y: 0,
+      duration: 0.6,
+      stagger: 0.12,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: sectionRef.current, start: 'top 72%', once: true },
+    });
   }, { scope: sectionRef });
 
   return (
-    <section id="projetos" ref={sectionRef} className="overflow-hidden py-24 px-4 sm:px-8 relative bg-[#f8fafc] border-t border-slate-200">
-      <div className="aurora-orb-1 top-0 left-[-10%]"></div>
-      <div className="aurora-orb-2 bottom-0 right-[-10%]"></div>
-      <div className="max-w-7xl mx-auto space-y-16">
-        {/* Section Header */}
-        <div className="text-center space-y-4 max-w-3xl mx-auto">
-          <Badge variant="accent" icon={<Briefcase className="w-3.5 h-3.5 text-sky-500" />}>
-            Projetos Entregues
-          </Badge>
-          <h2 className="font-display font-bold text-3xl sm:text-4xl text-slate-900 tracking-tight">
-            Negócios reais que transformaram sua rotina
-          </h2>
-          <p className="font-sans text-slate-600 text-base sm:text-lg">
-            Veja na prática como entregamos soluções de alto impacto, desde o planejamento até o código em produção.
+    <section id="projetos" ref={sectionRef} className="border-t border-brand-blue-gray px-4 py-20 sm:px-8 sm:py-28">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-10 grid gap-5 sm:mb-14 lg:grid-cols-[1fr_0.8fr] lg:items-end lg:gap-12">
+          <h2 className="max-w-2xl text-balance text-3xl font-semibold leading-tight tracking-[-0.04em] sm:text-5xl">Do PapinhIA ao Curriculy.</h2>
+          <p className="max-w-lg text-sm leading-6 text-brand-muted sm:text-base sm:leading-7">
+            Dois produtos próprios, em contextos diferentes: introdução alimentar e próximos passos profissionais.
           </p>
         </div>
 
-        {/* Projects Grid */}
-        <div ref={cardsRef} className="max-w-4xl mx-auto">
+        <div className="grid gap-10 md:grid-cols-2 md:gap-7 lg:gap-10">
           {PROJECTS.map((project) => (
-            <div
-              key={project.id}
-              className="glass-panel border border-slate-200 shadow-slate-500/5 rounded-2xl flex flex-col md:flex-row overflow-hidden p-0 group will-change-transform hover:border-slate-500/30 transition-colors"
-            >
-              {/* Image Preview */}
-              <div className="relative h-64 md:h-auto md:w-1/2 overflow-hidden bg-slate-100 shrink-0">
+            <article key={project.id} className="project-card group min-w-0">
+              <div className="relative aspect-[1.75] overflow-hidden rounded-2xl bg-[#f5f6fb]">
                 <img
-                  src={`${import.meta.env.BASE_URL}${project.image.startsWith('/') ? project.image.slice(1) : project.image}`}
-                  alt={project.title}
+                  src={`${import.meta.env.BASE_URL}${project.image?.startsWith('/') ? project.image.slice(1) : project.image}`}
+                  alt={`Captura da página inicial do ${project.title}`}
+                  width={project.id === 'curriculy' ? 1897 : 1280}
+                  height={project.id === 'curriculy' ? 910 : 800}
                   loading="lazy"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className={`h-full w-full transition-transform duration-500 group-hover:scale-[1.025] ${project.id === 'curriculy' ? 'object-contain' : 'object-cover'}`}
                 />
-                <div className="absolute top-4 left-4">
-                  <Badge variant="default" className="bg-white/90 text-slate-900 border-slate-200 backdrop-blur-sm">{project.category}</Badge>
-                </div>
+                <span className="absolute left-4 top-4 rounded-full border border-brand-blue-gray bg-white px-3 py-2 font-mono text-[9px] font-semibold uppercase tracking-[0.12em] text-brand-ink sm:left-5 sm:top-5">
+                  {project.category}
+                </span>
               </div>
 
-              {/* Content Body */}
-              <div className="p-8 space-y-6 flex-1 flex flex-col justify-center">
-                <div className="space-y-3">
-                  <span className="font-sans text-xs font-semibold text-slate-800">
-                    Cliente: {project.client}
-                  </span>
-                  <h3 className="font-display font-bold text-xl text-slate-900 transition-colors">
-                    {project.title}
-                  </h3>
-                  <p className="font-sans text-slate-600 text-sm leading-relaxed">
-                    {project.description}
-                  </p>
+              <div className="pt-5 sm:pt-6">
+                <p className="mb-2 font-mono text-[9px] uppercase tracking-[0.15em] text-brand-muted">{project.client}</p>
+                <h3 className="text-3xl font-semibold tracking-[-0.04em] sm:text-4xl">{project.title}</h3>
+                <p className="mt-3 max-w-xl text-base leading-7 text-brand-muted">{project.description}</p>
+
+                <div className="mt-5 border-t border-brand-blue-gray pt-4">
+                  <p className="mb-3 font-mono text-[9px] uppercase tracking-[0.14em] text-brand-muted">{project.detailsLabel ?? 'Tecnologias'}</p>
+                  <ul className="flex flex-wrap gap-2">
+                    {project.tags.map((tag) => (
+                      <li key={tag} className="rounded-md bg-white px-3 py-2 text-xs font-medium text-brand-ink">{tag}</li>
+                    ))}
+                  </ul>
                 </div>
 
-                {/* Impact Metrics Grid */}
-                <div className="pt-4 border-t border-slate-200 grid grid-cols-3 gap-2">
-                  {project.metrics.map((metric, idx) => (
-                    <div key={idx} className="space-y-0.5">
-                      <div className="font-mono font-bold text-base text-slate-900 flex items-center gap-1">
-                        <TrendingUp className="w-3 h-3 text-slate-800" />
-                        <span>{metric.value}</span>
-                      </div>
-                      <div className="font-sans text-[10px] text-slate-500 leading-tight">
-                        {metric.label}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Tech Tags */}
-                <div className="flex flex-wrap gap-1.5 pt-2">
-                  {project.tags.map((tag, idx) => (
-                    <span
-                      key={idx}
-                      className="font-mono px-2 py-1 text-[10px] font-medium bg-sky-50 text-sky-700 rounded-md border border-sky-100"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+                {project.url ? (
+                  <a href={project.url} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-md text-sm font-semibold text-brand-cobalt transition-[gap,color] duration-200 hover:gap-3 hover:text-brand-ink focus-visible:text-brand-ink">
+                    Conhecer o Curriculy <ArrowUpRight aria-hidden="true" className="size-4" />
+                  </a>
+                ) : (
+                  <a href="#contato" className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-md text-sm font-semibold text-brand-cobalt transition-[gap,color] duration-200 hover:gap-3 hover:text-brand-ink focus-visible:text-brand-ink">
+                    Conversar sobre o PapinhIA <ArrowUpRight aria-hidden="true" className="size-4" />
+                  </a>
+                )}
               </div>
-            </div>
+            </article>
           ))}
-        </div>
-
-        {/* Section Bottom CTA */}
-        <div className="text-center pt-6">
-          <Button
-            variant="primary"
-            size="lg"
-            rightIcon={<ArrowRight className="w-4 h-4" />}
-            onClick={() => {
-              const ctaSection = document.getElementById('orcamento');
-              ctaSection?.scrollIntoView({ behavior: 'smooth' });
-            }}
-          >
-            Quero esses resultados na minha empresa
-          </Button>
         </div>
       </div>
     </section>
